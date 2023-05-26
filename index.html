@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    /* CSS styles for the to-do list */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    .input-container {
+      display: flex;
+    }
+    
+    .input-container input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+    
+    .input-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    ul li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    ul li span {
+      flex: 1;
+    }
+    
+    ul li button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <div class="input-container">
+      <!-- Input field for adding tasks -->
+      <input type="text" id="taskInput" placeholder="Enter a task">
+      <!-- Button to add tasks -->
+      <button id="addTaskButton">Add Task</button>
+    </div>
+    <!-- Task list -->
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    // Get the required elements
+    const taskInput = document.getElementById('taskInput');
+    const addTaskButton = document.getElementById('addTaskButton');
+    const taskList = document.getElementById('taskList');
+
+    // Function to add a new task
+    function addTask() {
+      // Get the task text and trim any leading/trailing spaces
+      const taskText = taskInput.value.trim();
+
+      // Check if the task text is not empty
+      if (taskText !== '') {
+        // Create new elements for the task
+        const li = document.createElement('li'); // List item
+        const span = document.createElement('span'); // Task text
+        const deleteButton = document.createElement('button'); // Delete button
+
+        // Set the task text and delete button text
+        span.textContent = taskText;
+        deleteButton.textContent = 'Delete';
+
+        // Add event listener to the delete button to remove the task when clicked
+        deleteButton.addEventListener('click', function() {
+          li.remove();
+        });
+
+        // Append the task text and delete button to the list item
+        li.appendChild(span);
+        li.appendChild(deleteButton);
+
+        // Append the list item to the task list
+        taskList.appendChild(li);
+
+        // Clear the input field
+        taskInput.value = '';
+      }
+    }
+
+    // Event listener for the add task button
+    addTaskButton.addEventListener('click', addTask);
+
+    // Event listener for the enter key press in the task input field
+    taskInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        addTask();
+      }
+    });
+  </script>
+</body>
+</html>
